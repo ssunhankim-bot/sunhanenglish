@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이용권 결제 | 선한영어 Sunhan English</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="https://js.tosspayments.com/v2/standard"></script>
+<style>
+  :root{--bg:#0b0b0b;--card:#151515;--line:#2a2a2a;--text:#e9e9e9;--muted:#a3a3a3;--lime:#A4FA08;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:Pretendard,-apple-system,sans-serif;line-height:1.6;font-size:15px}
+  a{color:var(--lime)}
+  header{border-bottom:1px solid var(--line);padding:18px 16px}
+  header .in{max-width:760px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+  header a.logo{color:var(--lime);font-weight:800;text-decoration:none;font-size:17px}
+  header a.home{color:var(--muted);text-decoration:none;font-size:14px}
+  main{max-width:760px;margin:0 auto;padding:36px 16px 60px}
+  h1{font-size:26px;font-weight:800;margin-bottom:6px}
+  .sub{color:var(--muted);margin-bottom:28px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;margin-bottom:16px}
+  .step h2{font-size:17px;font-weight:700;margin-bottom:14px}
+  .step h2 span{color:var(--lime);margin-right:6px}
+  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .durations{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+  .opt{border:1.5px solid var(--line);border-radius:12px;padding:14px 12px;cursor:pointer;background:#101010;text-align:left;color:var(--text);font-family:inherit;font-size:14px}
+  .opt b{display:block;font-size:15px;margin-bottom:2px}
+  .opt small{color:var(--muted)}
+  .opt.on{border-color:var(--lime);background:#16200a}
+  .opt.on b{color:var(--lime)}
+  .summary{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .summary .name{font-weight:700}
+  .summary .period{color:var(--muted);font-size:13.5px}
+  .summary .price{font-size:24px;font-weight:800;color:var(--lime)}
+  .info{margin-top:12px;font-size:13.5px;color:var(--muted)}
+  .info li{margin-left:18px;margin-bottom:4px}
+  label{display:block;font-size:14px;font-weight:600;margin:10px 0 6px}
+  input[type=text],input[type=tel],input[type=email]{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0f0f0f;color:var(--text);font-size:15px;font-family:inherit}
+  .agree{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:13.5px;color:var(--muted)}
+  .agree input{margin-top:4px;accent-color:var(--lime)}
+  #payment-method,#agreement{background:#fff;border-radius:12px;overflow:hidden}
+  #agreement{margin-top:10px}
+  #pay{width:100%;margin-top:18px;padding:16px;border:none;border-radius:12px;background:var(--lime);color:#000;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit}
+  #pay:disabled{opacity:.5;cursor:not-allowed}
+  .err{color:#ff7a7a;font-size:13.5px;margin-top:8px;min-height:18px}
+  footer{border-top:1px solid var(--line);padding:32px 16px;text-align:center;color:var(--muted);font-size:13px;line-height:2}
+  footer .brand{color:var(--lime);font-weight:700}
+  footer .links a{color:var(--text);text-decoration:none;margin:0 8px}
+  @media(max-width:560px){.products{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="in"><a class="logo" href="/">선한영어 Sunhan English</a><a class="home" href="/">← 홈으로</a></div></header>
+
+<main>
+  <h1>이용권 결제</h1>
+  <p class="sub">회원가입 없이 바로 구매할 수 있어요. 결제 후 카카오톡으로 학습 콘텐츠를 보내드립니다.</p>
+
+  <div class="step">
+    <h2><span>1</span>상품 선택</h2>
+    <div class="products" id="products"></div>
+    <div class="durations" id="durations"></div>
+    <div class="summary">
+      <div><div class="name" id="sumName"></div><div class="period" id="sumPeriod"></div></div>
+      <div class="price" id="sumPrice"></div>
+    </div>
+    <ul class="info">
+      <li>디지털 콘텐츠 이용권으로, 실물 배송이 없습니다.</li>
+      <li>1회 결제 상품이며 자동 갱신(정기결제)되지 않습니다.</li>
+      <li>서비스 제공기간: 결제 확인 후 첫 발송일부터 <b id="infoDays"></b> (최대 제공기간 3개월)</li>
+      <li>발송 요일: 테드 화·목 / 뉴스 월·수·금 / 두 상품 패키지 평일(월~금)</li>
+      <li>환불 기준은 <a href="/refund.html" target="_blank">환불정책</a>을 확인해 주세요.</li>
+    </ul>
+  </div>
+
+  <div class="step">
+    <h2><span>2</span>구매자 정보 (비회원 구매)</h2>
+    <label for="buyerName">이름</label>
+    <input type="text" id="buyerName" placeholder="홍길동" autocomplete="name">
+    <label for="buyerPhone">휴대폰 번호 (카카오톡 연결 번호)</label>
+    <input type="tel" id="buyerPhone" placeholder="01012345678" autocomplete="tel">
+    <label for="buyerEmail">이메일</label>
+    <input type="email" id="buyerEmail" placeholder="example@email.com" autocomplete="email">
+    <div class="agree">
+      <input type="checkbox" id="agreePrivacy">
+      <label for="agreePrivacy" style="margin:0;font-weight:400">[필수] 개인정보 수집·이용 동의 — 수집 항목: 이름, 휴대폰 번호, 이메일 / 목적: 이용권 결제, 학습 콘텐츠 발송 및 고객 문의 응대 / 보유기간: 이용기간 종료 후 관계 법령에 따른 보관기간까지 (<a href="/privacy.html" target="_blank">개인정보처리방침</a>)</label>
+    </div>
+    <div class="agree">
+      <input type="checkbox" id="agreeRefund">
+      <label for="agreeRefund" style="margin:0;font-weight:400">[필수] 서비스 제공기간 및 <a href="/refund.html" target="_blank">환불정책</a>을 확인했습니다.</label>
+    </div>
+  </div>
+
+  <div class="step">
+    <h2><span>3</span>결제 수단</h2>
+    <div id="payment-method"></div>
+    <div id="agreement"></div>
+    <button id="pay" disabled>결제하기</button>
+    <div class="err" id="err"></div>
+  </div>
+</main>
+
+<footer>
+  <div class="links"><a href="/refund.html">환불정책</a> | <a href="/privacy.html"><b>개인정보처리방침</b></a></div>
+  <div class="brand">선한영어 Sunhan English</div>
+  선한영어 | 대표자 : 김선한 | 소재지 : 서울특별시 동대문구 천장산로 9길 12<br>
+  사업자 등록번호 : 607-39-49027 | 통신판매신고번호 : 2026-서울동대문-1400<br>
+  개인정보관리책임자 : 김선한<br>
+  문의 : 010-6645-9929, sunhanenglish.official@gmail.com<br>
+  카카오톡 채널 : 선한영어<br>
+  © 선한영어. All rights reserved.
+</footer>
+
+<script>
+  // ▼▼ 토스페이먼츠 개발자센터 > 내 개발정보 > 상점(sunhan5h9q) > [결제위젯 연동 키] 의 "클라이언트 키" 로 교체하세요.
+  //    심사 단계는 test_gck_... (테스트 키), 계약 완료 후 live_gck_... (라이브 키)
+  const CLIENT_KEY = "test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm";
+
+  // 상품·가격 (VAT 포함) — 랜딩페이지 가격과 반드시 동일해야 함
+  const PRODUCTS = {
+    ted:  { name: "통역사의 테드 영어", desc: "TED-Ed 영상 · 화·목 발송", prices: { 1: 12000, 3: 29000 } },
+    news: { name: "통역사의 뉴스 영어", desc: "영어 뉴스 · 월·수·금 발송",   prices: { 1: 19000, 3: 45000 } },
+    pkg:  { name: "두 상품 패키지", desc: "테드+뉴스 · 평일 발송",        prices: { 1: 27000, 3: 59000 } }
+  };
+  const DAYS = { 1: "30일", 3: "90일" };
+
+  const params = new URLSearchParams(location.search);
+  let product = PRODUCTS[params.get("product")] ? params.get("product") : "news";
+  let months = params.get("months") === "3" ? 3 : 1;
+  const won = n => n.toLocaleString("ko-KR") + "원";
+
+  function renderOptions() {
+    document.getElementById("products").innerHTML = Object.entries(PRODUCTS).map(([k, p]) =>
+      `<button class="opt ${k === product ? "on" : ""}" data-p="${k}"><b>${p.name}</b><small>${p.desc}</small></button>`).join("");
+    document.getElementById("durations").innerHTML = [1, 3].map(m =>
+      `<button class="opt ${m === months ? "on" : ""}" data-m="${m}"><b>${m}개월권 (${DAYS[m]})</b><small>${won(PRODUCTS[product].prices[m])}</small></button>`).join("");
+    const p = PRODUCTS[product];
+    document.getElementById("sumName").textContent = `${p.name} ${months}개월권`;
+    document.getElementById("sumPeriod").textContent = `서비스 제공기간 ${months}개월 (${DAYS[months]}) · 1회 결제`;
+    document.getElementById("sumPrice").textContent = won(p.prices[months]);
+    document.getElementById("infoDays").textContent = `${months}개월 (${DAYS[months]})`;
+  }
+
+  document.addEventListener("click", async e => {
+    const btn = e.target.closest(".opt");
+    if (!btn) return;
+    if (btn.dataset.p) product = btn.dataset.p;
+    if (btn.dataset.m) months = Number(btn.dataset.m);
+    renderOptions();
+    if (window._widgets) await window._widgets.setAmount({ currency: "KRW", value: PRODUCTS[product].prices[months] });
+  });
+
+  renderOptions();
+
+  (async () => {
+    const payBtn = document.getElementById("pay");
+    const errBox = document.getElementById("err");
+    try {
+      const tossPayments = TossPayments(CLIENT_KEY);
+      const widgets = tossPayments.widgets({ customerKey: TossPayments.ANONYMOUS }); // 비회원 결제
+      window._widgets = widgets;
+      await widgets.setAmount({ currency: "KRW", value: PRODUCTS[product].prices[months] });
+      await Promise.all([
+        widgets.renderPaymentMethods({ selector: "#payment-method", variantKey: "DEFAULT" }),
+        widgets.renderAgreement({ selector: "#agreement", variantKey: "AGREEMENT" })
+      ]);
+      payBtn.disabled = false;
+    } catch (e) {
+      errBox.textContent = "결제창을 불러오지 못했습니다: " + (e.message || e);
+    }
+
+    payBtn.addEventListener("click", async () => {
+      errBox.textContent = "";
+      const name = document.getElementById("buyerName").value.trim();
+      const phone = document.getElementById("buyerPhone").value.replace(/\D/g, "");
+      const email = document.getElementById("buyerEmail").value.trim();
+      if (!name) return (errBox.textContent = "이름을 입력해 주세요.");
+      if (!/^01\d{8,9}$/.test(phone)) return (errBox.textContent = "휴대폰 번호를 정확히 입력해 주세요.");
+      if (!/^\S+@\S+\.\S+$/.test(email)) return (errBox.textContent = "이메일을 정확히 입력해 주세요.");
+      if (!document.getElementById("agreePrivacy").checked) return (errBox.textContent = "개인정보 수집·이용에 동의해 주세요.");
+      if (!document.getElementById("agreeRefund").checked) return (errBox.textContent = "서비스 제공기간 및 환불정책 확인에 체크해 주세요.");
+
+      const p = PRODUCTS[product];
+      try {
+        await window._widgets.requestPayment({
+          orderId: `SH-${product}-${months}-${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
+          orderName: `${p.name} ${months}개월권`,
+          customerName: name,
+          customerMobilePhone: phone,
+          customerEmail: email,
+          successUrl: location.origin + "/success.html",
+          failUrl: location.origin + "/fail.html"
+        });
+      } catch (e) {
+        errBox.textContent = e.message || "결제가 취소되었습니다.";
+      }
+    });
+  })();
+</script>
+</body>
+</html>

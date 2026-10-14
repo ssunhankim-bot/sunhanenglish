@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>결제 완료 | 선한영어 Sunhan English</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  :root{--bg:#0b0b0b;--card:#151515;--line:#2a2a2a;--text:#e9e9e9;--muted:#a3a3a3;--lime:#A4FA08;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:Pretendard,-apple-system,sans-serif;line-height:1.7;font-size:15px}
+  main{max-width:560px;margin:0 auto;padding:60px 16px;text-align:center}
+  .badge{width:64px;height:64px;border-radius:50%;background:var(--lime);color:#000;font-size:32px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  h1{font-size:24px;margin-bottom:8px}
+  p{color:var(--muted)}
+  .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:26px 0;text-align:left;font-size:14px}
+  .box div{display:flex;justify-content:space-between;padding:6px 0;gap:12px}
+  .box span:first-child{color:var(--muted)}
+  a.btn{display:inline-block;padding:14px 26px;border-radius:12px;background:var(--lime);color:#000;font-weight:800;text-decoration:none}
+  #done{display:none}
+</style>
+</head>
+<body>
+<main>
+  <p id="loading">결제를 확인하고 있어요…</p>
+  <div id="done">
+    <div class="badge">✓</div>
+    <h1>결제가 완료되었습니다</h1>
+    <p>1영업일 이내에 입력하신 번호로 카카오톡 안내를 보내드립니다.</p>
+    <div class="box">
+      <div><span>주문번호</span><span id="orderId">-</span></div>
+      <div><span>결제금액</span><span id="amount">-</span></div>
+    </div>
+    <a class="btn" href="/">홈으로</a>
+  </div>
+</main>
+<script>
+  // 카드사 심사(테스트) 단계: false  →  /api/confirm 이 아직 없어도 완료 화면을 보여줌
+  // 계약 완료 후 실제 판매 시작 전: true 로 변경 (승인 실패 시 실패 화면으로 이동)
+  const REQUIRE_CONFIRM = false;
+
+  const q = new URLSearchParams(location.search);
+  const paymentKey = q.get("paymentKey"), orderId = q.get("orderId"), amount = Number(q.get("amount"));
+
+  function showDone() {
+    document.getElementById("orderId").textContent = orderId || "-";
+    document.getElementById("amount").textContent = amount ? amount.toLocaleString("ko-KR") + "원" : "-";
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("done").style.display = "block";
+  }
+  function goFail(msg) {
+    location.replace("/fail.html?message=" + encodeURIComponent(msg || "결제 승인에 실패했습니다."));
+  }
+
+  (async () => {
+    try {
+      const res = await fetch("/api/confirm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ paymentKey, orderId, amount })
+      });
+      if (res.ok) return showDone();
+      if (!REQUIRE_CONFIRM) return showDone();
+      const data = await res.json().catch(() => ({}));
+      goFail(data.message);
+    } catch (e) {
+      REQUIRE_CONFIRM ? goFail() : showDone();
+    }
+  })();
+</script>
+</body>
+</html>
