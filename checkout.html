@@ -181,6 +181,7 @@
       if (!document.getElementById("agreeRefund").checked) return (errBox.textContent = "서비스 제공기간 및 환불정책 확인에 체크해 주세요.");
 
       const p = PRODUCTS[product];
+      try { sessionStorage.setItem("sh_buyer", JSON.stringify({ name, phone, email })); } catch (e) {}
       try {
         await window._widgets.requestPayment({
           orderId: `SH-${product}-${months}-${Date.now()}${Math.random().toString(36).slice(2, 6)}`,
