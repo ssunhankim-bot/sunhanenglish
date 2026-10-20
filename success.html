@@ -52,13 +52,17 @@
     location.replace("/fail.html?message=" + encodeURIComponent(msg || "결제 승인에 실패했습니다."));
   }
 
+  let buyer = {};
+  try { buyer = JSON.parse(sessionStorage.getItem("sh_buyer") || "{}"); } catch (e) {}
+
   (async () => {
     try {
       const res = await fetch("/api/confirm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ paymentKey, orderId, amount })
+        body: JSON.stringify({ paymentKey, orderId, amount, buyer })
       });
+      try { sessionStorage.removeItem("sh_buyer"); } catch (e) {}
       if (res.ok) return showDone();
       if (!REQUIRE_CONFIRM) return showDone();
       const data = await res.json().catch(() => ({}));
