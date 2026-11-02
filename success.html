@@ -37,7 +37,7 @@
 <script>
   // 카드사 심사(테스트) 단계: false  →  /api/confirm 이 아직 없어도 완료 화면을 보여줌
   // 계약 완료 후 실제 판매 시작 전: true 로 변경 (승인 실패 시 실패 화면으로 이동)
-  const REQUIRE_CONFIRM = false;
+  const REQUIRE_CONFIRM = true;
 
   const q = new URLSearchParams(location.search);
   const paymentKey = q.get("paymentKey"), orderId = q.get("orderId"), amount = Number(q.get("amount"));
