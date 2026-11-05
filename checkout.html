@@ -37,6 +37,9 @@
   .notice b{color:var(--text)}
   .kakao{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:11px 16px;border-radius:10px;background:#FEE500;color:#191919;font-weight:800;font-size:14px;text-decoration:none}
   .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
+  details.how{margin-top:6px;font-size:13px;color:var(--muted)}
+  details.how summary{cursor:pointer;color:var(--lime);font-weight:700}
+  details.how p{margin-top:4px;line-height:1.6}
   .summary{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
   .summary .name{font-weight:700}
   .summary .period{color:var(--muted);font-size:13.5px}
@@ -71,6 +74,12 @@
       <li>콘텐츠는 <b>카카오톡 채널 '선한영어'</b>로 발송됩니다. 결제 전에 채널을 추가해 주세요.</li>
       <li>휴대폰 번호는 <b>카카오톡에 가입된 번호</b>로 입력해 주세요. 이 번호로 수신 대상에 등록됩니다.</li>
       <li>채널을 차단하거나 메시지 수신을 거부하면 콘텐츠를 받으실 수 없어요.</li>
+      <li>카카오 계정의 <b>마케팅 목적 개인정보 수집·이용 동의</b>와 <b>맞춤형 광고 허용</b>이 모두 켜져 있어야 메시지가 발송돼요. (카카오 정책)
+        <details class="how"><summary>설정 방법 보기</summary>
+          <p>① 카카오톡 &gt; 더보기 &gt; 설정(톱니바퀴) &gt; 카카오계정 &gt; 계정 이용 &gt; 서비스 이용 동의 &gt; 마케팅 목적의 개인정보 수집 및 이용 동의</p>
+          <p>② <a href="https://info.ad.daum.net/optoutko.do" target="_blank" rel="noopener">카카오 맞춤형 광고 설정</a>에서 '허용' 선택</p>
+        </details>
+      </li>
       <li>첫 발송: 결제일 다음 날 이후 처음 오는 <b>월·수·금 오전 8시</b></li>
     </ol>
     <a class="kakao" href="https://pf.kakao.com/_BEqxnX" target="_blank" rel="noopener">카카오톡 채널 추가하기</a>
@@ -113,7 +122,7 @@
     </div>
     <div class="agree">
       <input type="checkbox" id="agreeKakao">
-      <label for="agreeKakao" style="margin:0;font-weight:400">[필수] 콘텐츠는 카카오톡 채널 '선한영어'로만 발송되며, 채널을 추가하지 않거나 차단하면 받을 수 없음을 확인했습니다.</label>
+      <label for="agreeKakao" style="margin:0;font-weight:400">[필수] 콘텐츠는 카카오톡 채널 '선한영어'로만 발송되며, 채널을 추가하지 않거나 차단한 경우, 카카오 계정의 수신 관련 동의(마케팅 목적 개인정보 수집·이용, 맞춤형 광고 허용)가 꺼져 있는 경우 받을 수 없음을 확인했습니다.</label>
     </div>
   </div>
 
