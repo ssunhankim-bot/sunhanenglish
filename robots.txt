@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /success.html
+Disallow: /fail.html
+Disallow: /api/
+
+Sitemap: https://sunhanenglish.com/sitemap.xml

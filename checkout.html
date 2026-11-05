@@ -28,6 +28,15 @@
   .opt small{color:var(--muted)}
   .opt.on{border-color:var(--lime);background:#16200a}
   .opt.on b{color:var(--lime)}
+  .opt.soon{opacity:.45;cursor:not-allowed;position:relative}
+  .opt .tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:6px;background:#2a2a2a;color:var(--muted);font-size:11px;font-weight:700;vertical-align:middle}
+  .notice{background:#16200a;border:1.5px solid var(--lime);border-radius:14px;padding:18px 18px 16px;margin-bottom:16px}
+  .notice h2{font-size:16px;font-weight:800;margin-bottom:10px;color:var(--lime)}
+  .notice ol{margin-left:18px;font-size:14px;line-height:1.75}
+  .notice ol li{margin-bottom:4px}
+  .notice b{color:var(--text)}
+  .kakao{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:11px 16px;border-radius:10px;background:#FEE500;color:#191919;font-weight:800;font-size:14px;text-decoration:none}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
   .summary{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
   .summary .name{font-weight:700}
   .summary .period{color:var(--muted);font-size:13.5px}
@@ -54,7 +63,18 @@
 
 <main>
   <h1>이용권 결제</h1>
-  <p class="sub">회원가입 없이 바로 구매할 수 있어요. 결제 후 카카오톡으로 학습 콘텐츠를 보내드립니다.</p>
+  <p class="sub">회원가입 없이 바로 구매할 수 있어요. 학습 콘텐츠는 카카오톡 채널 '선한영어'로 보내드립니다.</p>
+
+  <div class="notice">
+    <h2>결제 전 꼭 확인해 주세요</h2>
+    <ol>
+      <li>콘텐츠는 <b>카카오톡 채널 '선한영어'</b>로 발송됩니다. 결제 전에 채널을 추가해 주세요.</li>
+      <li>휴대폰 번호는 <b>카카오톡에 가입된 번호</b>로 입력해 주세요. 이 번호로 수신 대상에 등록됩니다.</li>
+      <li>채널을 차단하거나 메시지 수신을 거부하면 콘텐츠를 받으실 수 없어요.</li>
+      <li>첫 발송: 결제일 다음 날 이후 처음 오는 <b>월·수·금 오전 8시</b></li>
+    </ol>
+    <a class="kakao" href="https://pf.kakao.com/_BEqxnX" target="_blank" rel="noopener">카카오톡 채널 추가하기</a>
+  </div>
 
   <div class="step">
     <h2><span>1</span>상품 선택</h2>
@@ -68,7 +88,8 @@
       <li>디지털 콘텐츠 이용권으로, 실물 배송이 없습니다.</li>
       <li>1회 결제 상품이며 자동 갱신(정기결제)되지 않습니다.</li>
       <li>서비스 제공기간: 결제 확인 후 첫 발송일부터 <b id="infoDays"></b> (최대 제공기간 3개월)</li>
-      <li>발송 요일: 테드 화·목 / 뉴스 월·수·금 / 두 상품 패키지 평일(월~금)</li>
+      <li>발송: 매주 월·수·금 오전 8시, 카카오톡 채널 '선한영어'로 발송</li>
+      <li>통역사의 테드 영어와 두 상품 패키지는 준비 중이에요.</li>
       <li>환불 기준은 <a href="/refund.html" target="_blank">환불정책</a>을 확인해 주세요.</li>
     </ul>
   </div>
@@ -77,8 +98,9 @@
     <h2><span>2</span>구매자 정보 (비회원 구매)</h2>
     <label for="buyerName">이름</label>
     <input type="text" id="buyerName" placeholder="홍길동" autocomplete="name">
-    <label for="buyerPhone">휴대폰 번호 (카카오톡 연결 번호)</label>
+    <label for="buyerPhone">휴대폰 번호 (카카오톡에 가입된 번호)</label>
     <input type="tel" id="buyerPhone" placeholder="01012345678" autocomplete="tel">
+    <p class="hint">이 번호로 카카오톡 채널 수신 대상에 등록돼요. 카카오톡 번호와 다르면 콘텐츠를 받으실 수 없어요.</p>
     <label for="buyerEmail">이메일</label>
     <input type="email" id="buyerEmail" placeholder="example@email.com" autocomplete="email">
     <div class="agree">
@@ -88,6 +110,10 @@
     <div class="agree">
       <input type="checkbox" id="agreeRefund">
       <label for="agreeRefund" style="margin:0;font-weight:400">[필수] 서비스 제공기간 및 <a href="/refund.html" target="_blank">환불정책</a>을 확인했습니다.</label>
+    </div>
+    <div class="agree">
+      <input type="checkbox" id="agreeKakao">
+      <label for="agreeKakao" style="margin:0;font-weight:400">[필수] 콘텐츠는 카카오톡 채널 '선한영어'로만 발송되며, 채널을 추가하지 않거나 차단하면 받을 수 없음을 확인했습니다.</label>
     </div>
   </div>
 
@@ -117,21 +143,24 @@
   const CLIENT_KEY = "live_gck_DnyRpQWGrN2kmyaDOkeerKwv1M9E";
 
   // 상품·가격 (VAT 포함) — 랜딩페이지 가격과 반드시 동일해야 함
+  // open: true = 판매 중, false = 준비 중 (선택 불가). 다시 열 때는 true 로 바꾸고 functions/api/confirm.js 의 PRICES 도 함께 열어 주세요.
   const PRODUCTS = {
-    ted:  { name: "통역사의 테드 영어", desc: "TED-Ed 영상 · 화·목 발송", prices: { 1: 12000, 3: 29000 } },
-    news: { name: "통역사의 뉴스 영어", desc: "영어 뉴스 · 월·수·금 발송",   prices: { 1: 19000, 3: 45000 } },
-    pkg:  { name: "두 상품 패키지", desc: "테드+뉴스 · 평일 발송",        prices: { 1: 27000, 3: 59000 } }
+    news: { name: "통역사의 뉴스 영어", desc: "영어 뉴스 · 월·수·금 발송",   prices: { 1: 19000, 3: 45000 }, open: true },
+    ted:  { name: "통역사의 테드 영어", desc: "TED-Ed 영상 · 화·목 발송", prices: { 1: 12000, 3: 29000 }, open: false },
+    pkg:  { name: "두 상품 패키지", desc: "테드+뉴스 · 평일 발송",        prices: { 1: 27000, 3: 59000 }, open: false }
   };
   const DAYS = { 1: "30일", 3: "90일" };
 
   const params = new URLSearchParams(location.search);
-  let product = PRODUCTS[params.get("product")] ? params.get("product") : "news";
+  const asked = PRODUCTS[params.get("product")];
+  let product = asked && asked.open ? params.get("product") : "news";
   let months = params.get("months") === "3" ? 3 : 1;
   const won = n => n.toLocaleString("ko-KR") + "원";
 
   function renderOptions() {
-    document.getElementById("products").innerHTML = Object.entries(PRODUCTS).map(([k, p]) =>
-      `<button class="opt ${k === product ? "on" : ""}" data-p="${k}"><b>${p.name}</b><small>${p.desc}</small></button>`).join("");
+    document.getElementById("products").innerHTML = Object.entries(PRODUCTS).map(([k, p]) => p.open
+      ? `<button class="opt ${k === product ? "on" : ""}" data-p="${k}"><b>${p.name}</b><small>${p.desc}</small></button>`
+      : `<button class="opt soon" disabled aria-disabled="true"><b>${p.name}<span class="tag">준비 중</span></b><small>${p.desc}</small></button>`).join("");
     document.getElementById("durations").innerHTML = [1, 3].map(m =>
       `<button class="opt ${m === months ? "on" : ""}" data-m="${m}"><b>${m}개월권 (${DAYS[m]})</b><small>${won(PRODUCTS[product].prices[m])}</small></button>`).join("");
     const p = PRODUCTS[product];
@@ -143,7 +172,8 @@
 
   document.addEventListener("click", async e => {
     const btn = e.target.closest(".opt");
-    if (!btn) return;
+    if (!btn || btn.disabled) return;
+    if (btn.dataset.p && !(PRODUCTS[btn.dataset.p] || {}).open) return;
     if (btn.dataset.p) product = btn.dataset.p;
     if (btn.dataset.m) months = Number(btn.dataset.m);
     renderOptions();
@@ -179,6 +209,8 @@
       if (!/^\S+@\S+\.\S+$/.test(email)) return (errBox.textContent = "이메일을 정확히 입력해 주세요.");
       if (!document.getElementById("agreePrivacy").checked) return (errBox.textContent = "개인정보 수집·이용에 동의해 주세요.");
       if (!document.getElementById("agreeRefund").checked) return (errBox.textContent = "서비스 제공기간 및 환불정책 확인에 체크해 주세요.");
+      if (!document.getElementById("agreeKakao").checked) return (errBox.textContent = "카카오톡 채널 발송 안내 확인에 체크해 주세요.");
+      if (!PRODUCTS[product].open) return (errBox.textContent = "현재 준비 중인 상품입니다.");
 
       const p = PRODUCTS[product];
       try { sessionStorage.setItem("sh_buyer", JSON.stringify({ name, phone, email })); } catch (e) {}

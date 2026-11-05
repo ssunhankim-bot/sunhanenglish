@@ -7,10 +7,11 @@
 //   SHEET_WEBHOOK_SECRET  Apps Script 코드의 SECRET 과 같은 값
 // 시트 관련 두 값이 없으면 기록·알림만 건너뛰고 결제 승인은 그대로 진행합니다.
 
+// 판매 중인 상품만 승인합니다. 준비 중 상품을 다시 열 때는 주석(//)을 지우고, checkout.html 의 open 도 true 로 바꿔 주세요.
 const PRICES = {
-  ted:  { 1: 12000, 3: 29000 },
   news: { 1: 19000, 3: 45000 },
-  pkg:  { 1: 27000, 3: 59000 }
+  // ted:  { 1: 12000, 3: 29000 },
+  // pkg:  { 1: 27000, 3: 59000 },
 };
 
 const json = (data, status = 200) =>
@@ -40,6 +41,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
   // orderId 형식: SH-{product}-{months}-{random}  → 금액 위변조 검증
   const m = /^SH-(ted|news|pkg)-(1|3)-[A-Za-z0-9]+$/.exec(orderId || "");
   if (!paymentKey || !m) return json({ message: "주문 정보가 올바르지 않습니다." }, 400);
+  if (!PRICES[m[1]]) return json({ message: "현재 판매하지 않는 상품입니다." }, 400);
   if (PRICES[m[1]][m[2]] !== amount) return json({ message: "결제 금액이 상품 금액과 다릅니다." }, 400);
   if (!env.TOSS_SECRET_KEY) return json({ message: "서버 설정(TOSS_SECRET_KEY)이 없습니다." }, 500);
 
@@ -53,7 +55,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
   });
   const data = await res.json();
 
-  if (res.ok) {
+  // 결제 완료(DONE)일 때만 시트 기록 (가상계좌 입금 대기 등은 제외)
+  if (res.ok && data.status === "DONE") {
     const buyer = body.buyer || {};
     const task = notifySheet(env, {
       orderId,
