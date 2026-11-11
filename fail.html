@@ -3,21 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>결제 실패 | 선한영어 Sunhan English</title>
+<title>결제 실패 | 선한영어</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='232 176 820 820'>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-  body{background:#0b0b0b;color:#e9e9e9;font-family:Pretendard,-apple-system,sans-serif;margin:0;text-align:center}
-  main{max-width:560px;margin:0 auto;padding:60px 16px}
-  h1{font-size:24px;margin-bottom:8px}
-  p{color:#a3a3a3;line-height:1.7}
-  a{display:inline-block;margin-top:24px;padding:14px 26px;border-radius:12px;background:#A4FA08;color:#000;font-weight:800;text-decoration:none}
+  :root{--bg:#000;--card:#14160f;--card2:#1a1d13;--line:#282b1f;--lime:#a3e635;--ink:#f4f6ef;--text:#f4f6ef;--muted:#9aa08c;--muted2:#6b7060;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:'Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;line-height:1.75;font-size:15px;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;word-break:keep-all;overflow-wrap:break-word}
+  a{color:var(--ink);text-underline-offset:3px}
+  header{border-bottom:1px solid var(--line);padding:16px 20px}
+  header .in{max-width:520px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+  header a.logo{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:800;text-decoration:none;font-size:14px;letter-spacing:3px}
+  header a.logo svg{width:28px;height:28px}
+  header a.home{color:var(--muted);text-decoration:none;font-size:14px}
+  footer{border-top:1px solid var(--line);padding:28px 24px 40px;text-align:center;color:var(--muted2);font-size:12.5px;line-height:2}
+  footer .brand{color:var(--lime);font-weight:700}
+  footer .links{margin-bottom:8px}
+  footer .links a{color:inherit;text-decoration:none;margin:0 4px}
+  main{max-width:520px;margin:0 auto;padding:72px 20px 80px;text-align:center}
+  .badge{width:56px;height:56px;border-radius:50%;border:1.5px solid #3d4130;color:var(--muted);font-size:26px;font-weight:800;display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+  h1{font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px}
+  #msg{color:#aeb3a2}
+  .cta{display:inline-block;margin-top:28px;padding:15px 34px;border-radius:13px;background:var(--lime);color:#10130a;font-weight:800;font-size:16px;text-decoration:none}
+  .alt{display:block;margin-top:16px;font-size:14px;color:var(--muted)}
 </style>
 </head>
 <body>
+<header><div class="in"><a class="logo" href="/"><svg viewBox="334 278 616 616" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#fff" d="M445 288 675 360V382L485 335V853L445 870Z"/><rect x="634" y="537" width="13" height="78" rx="6.5" fill="#fff"/><path fill="#a3e635" d="M485 828 675 790 485 853Z"/><path fill="#a3e635" d="M676 398 839 323V808L787 801 799 884 735 799 676 789Z"/></svg><span>선한영어</span></a><a class="home" href="/">← 홈으로</a></div></header>
 <main>
+  <div class="badge">!</div>
   <h1>결제가 완료되지 않았습니다</h1>
-  <p id="msg">결제가 취소되었거나 오류가 발생했습니다.</p>
-  <a href="/checkout.html">다시 결제하기</a>
+  <p id="msg">결제가 취소되었거나 오류가 발생했습니다</p>
+  <a class="cta" href="/checkout.html">다시 결제하기</a>
+  <a class="alt" href="https://pf.kakao.com/_BEqxnX" target="_blank" rel="noopener">문제가 계속되면 카카오톡 채널로 문의해 주세요</a>
 </main>
 <script>
   const q = new URLSearchParams(location.search);

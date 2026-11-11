@@ -3,84 +3,96 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이용권 결제 | 선한영어 Sunhan English</title>
+<title>이용권 결제 | 선한영어</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='232 176 820 820'><rect x='232' y='176' width='820' height='820' rx='180' fill='%23000'/><path fill='%23fff' d='M445 288 675 360V404L509 356V842L445 870Z'/><path fill='%23a3e635' d='M509 823 675 790 509 842Z'/><path fill='%23a3e635' d='M676 398 839 323V808L787 801 799 884 735 799 676 789Z'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <script src="https://js.tosspayments.com/v2/standard"></script>
 <style>
-  :root{--bg:#0b0b0b;--card:#151515;--line:#2a2a2a;--text:#e9e9e9;--muted:#a3a3a3;--lime:#A4FA08;}
+  :root{--bg:#000;--card:#14160f;--card2:#1a1d13;--line:#282b1f;--lime:#a3e635;--ink:#f4f6ef;--text:#f4f6ef;--muted:#9aa08c;--muted2:#6b7060;}
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--bg);color:var(--text);font-family:Pretendard,-apple-system,sans-serif;line-height:1.6;font-size:15px}
-  a{color:var(--lime)}
-  header{border-bottom:1px solid var(--line);padding:18px 16px}
-  header .in{max-width:760px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-  header a.logo{color:var(--lime);font-weight:800;text-decoration:none;font-size:17px}
+  body{background:var(--bg);color:var(--ink);font-family:'Pretendard','Apple SD Gothic Neo',system-ui,sans-serif;line-height:1.7;font-size:15px;-webkit-font-smoothing:antialiased;letter-spacing:-.01em;word-break:keep-all;overflow-wrap:break-word}
+  a{color:var(--ink);text-underline-offset:3px}
+  header{border-bottom:1px solid var(--line);padding:16px 20px}
+  header .in{max-width:520px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+  header a.logo{display:flex;align-items:center;gap:9px;color:var(--ink);font-weight:800;text-decoration:none;font-size:14px;letter-spacing:3px}
+  header a.logo svg{width:28px;height:28px}
   header a.home{color:var(--muted);text-decoration:none;font-size:14px}
-  main{max-width:760px;margin:0 auto;padding:36px 16px 60px}
-  h1{font-size:26px;font-weight:800;margin-bottom:6px}
-  .sub{color:var(--muted);margin-bottom:28px}
-  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;margin-bottom:16px}
-  .step h2{font-size:17px;font-weight:700;margin-bottom:14px}
-  .step h2 span{color:var(--lime);margin-right:6px}
-  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-  .durations{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-  .opt{border:1.5px solid var(--line);border-radius:12px;padding:14px 12px;cursor:pointer;background:#101010;text-align:left;color:var(--text);font-family:inherit;font-size:14px}
-  .opt b{display:block;font-size:15px;margin-bottom:2px}
-  .opt small{color:var(--muted)}
-  .opt.on{border-color:var(--lime);background:#16200a}
-  .opt.on b{color:var(--lime)}
-  .opt.soon{opacity:.45;cursor:not-allowed;position:relative}
-  .opt .tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:6px;background:#2a2a2a;color:var(--muted);font-size:11px;font-weight:700;vertical-align:middle}
-  .notice{background:#16200a;border:1.5px solid var(--lime);border-radius:14px;padding:18px 18px 16px;margin-bottom:16px}
-  .notice h2{font-size:16px;font-weight:800;margin-bottom:10px;color:var(--lime)}
-  .notice ol{margin-left:18px;font-size:14px;line-height:1.75}
-  .notice ol li{margin-bottom:4px}
-  .notice b{color:var(--text)}
-  .kakao{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:11px 16px;border-radius:10px;background:#FEE500;color:#191919;font-weight:800;font-size:14px;text-decoration:none}
-  .hint{font-size:12.5px;color:var(--muted);margin-top:6px}
-  details.how{margin-top:6px;font-size:13px;color:var(--muted)}
-  details.how summary{cursor:pointer;color:var(--lime);font-weight:700}
-  details.how p{margin-top:4px;line-height:1.6}
-  .summary{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
-  .summary .name{font-weight:700}
+  main{max-width:520px;margin:0 auto;padding:36px 20px 64px}
+  h1{font-size:25px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px}
+  .sub{color:#aeb3a2;margin-bottom:28px;font-size:15px}
+  .step,.notice{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px 20px;margin-bottom:14px}
+  .step h2,.notice h2{font-size:17px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+  .step h2 span{flex:none;width:26px;height:26px;border-radius:9px;background:var(--lime);color:#10130a;font-family:'Montserrat','Pretendard',sans-serif;font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .notice ol{list-style:none;counter-reset:n;display:flex;flex-direction:column;gap:13px}
+  .notice ol li{counter-increment:n;position:relative;padding-left:30px;font-size:14.5px;line-height:1.6}
+  .notice ol li::before{content:counter(n);position:absolute;left:0;top:1px;width:20px;height:20px;border-radius:6px;border:1px solid #3d4130;color:var(--muted);font-family:'Montserrat','Pretendard',sans-serif;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .notice ol li b{font-weight:700;color:var(--ink)}
+  .notice ol li small{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
+  .kakao{display:flex;align-items:center;justify-content:center;margin-top:18px;padding:13px 16px;border-radius:12px;background:#FEE500;color:#191919;font-weight:800;font-size:15px;text-decoration:none}
+  details.how{margin-top:6px;font-size:13.5px;color:var(--muted)}
+  details.how summary{cursor:pointer;color:var(--ink);font-weight:600;text-decoration:underline;text-underline-offset:3px;list-style:none}
+  details.how summary::-webkit-details-marker{display:none}
+  details.how p{margin-top:6px;line-height:1.65}
+  .products{display:grid;grid-template-columns:1fr;gap:10px}
+  .durations{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:10px}
+  .opt{border:1.5px solid var(--line);border-radius:13px;padding:14px 14px;cursor:pointer;background:#0d0f08;text-align:left;color:var(--ink);font-family:inherit;font-size:14px;line-height:1.5}
+  .opt b{display:block;font-size:15px;font-weight:700;margin-bottom:2px}
+  .opt small{color:var(--muted);font-size:13.5px}
+  .opt.on{border-color:var(--lime);background:#161a0e}
+  .opt.soon{opacity:.45;cursor:not-allowed}
+  .opt .tag{display:inline-block;margin-left:7px;padding:1px 8px;border-radius:6px;background:#2a2d22;color:var(--muted);font-size:11px;font-weight:700;vertical-align:middle}
+  .summary{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:8px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+  .summary .name{font-weight:700;font-size:15.5px}
   .summary .period{color:var(--muted);font-size:13.5px}
-  .summary .price{font-size:24px;font-weight:800;color:var(--lime)}
-  .info{margin-top:12px;font-size:13.5px;color:var(--muted)}
-  .info li{margin-left:18px;margin-bottom:4px}
-  label{display:block;font-size:14px;font-weight:600;margin:10px 0 6px}
-  input[type=text],input[type=tel],input[type=email]{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0f0f0f;color:var(--text);font-size:15px;font-family:inherit}
-  .agree{display:flex;gap:8px;align-items:flex-start;margin-top:14px;font-size:13.5px;color:var(--muted)}
-  .agree input{margin-top:4px;accent-color:var(--lime)}
+  .summary .price{font-family:'Montserrat','Pretendard',sans-serif;font-size:25px;font-weight:800;letter-spacing:-.5px}
+  .info{list-style:none;margin-top:16px;font-size:13.5px;color:var(--muted);line-height:1.7}
+  .info li{position:relative;padding-left:12px;margin-bottom:4px}
+  .info li::before{content:"·";position:absolute;left:2px;color:var(--muted2)}
+  .info a{color:var(--muted)}
+  label{display:block;font-size:14px;font-weight:700;margin:14px 0 7px}
+  input[type=text],input[type=tel],input[type=email]{width:100%;padding:13px 14px;border-radius:11px;border:1px solid var(--line);background:#0d0f08;color:var(--ink);font-size:16px;font-family:inherit;outline:none}
+  input[type=text]:focus,input[type=tel]:focus,input[type=email]:focus{border-color:var(--lime)}
+  input::placeholder{color:var(--muted2)}
+  .hint{font-size:13px;color:var(--muted);margin-top:7px;line-height:1.6}
+  .agrees{margin-top:20px;padding-top:6px;border-top:1px solid var(--line)}
+  .agree{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:13.5px;color:#aeb3a2;line-height:1.65}
+  .agree input{flex:none;width:18px;height:18px;margin-top:2px;accent-color:var(--lime)}
+  .agree label{margin:0;font-weight:400;font-size:13.5px}
+  .agree label b{color:var(--ink);font-weight:700}
   #payment-method,#agreement{background:#fff;border-radius:12px;overflow:hidden}
   #agreement{margin-top:10px}
-  #pay{width:100%;margin-top:18px;padding:16px;border:none;border-radius:12px;background:var(--lime);color:#000;font-size:17px;font-weight:800;cursor:pointer;font-family:inherit}
+  #pay{width:100%;margin-top:18px;padding:16px;border:none;border-radius:13px;background:var(--lime);color:#10130a;font-size:16.5px;font-weight:800;cursor:pointer;font-family:inherit}
   #pay:disabled{opacity:.5;cursor:not-allowed}
-  .err{color:#ff7a7a;font-size:13.5px;margin-top:8px;min-height:18px}
-  footer{border-top:1px solid var(--line);padding:32px 16px;text-align:center;color:var(--muted);font-size:13px;line-height:2}
+  .err{color:#ff8a8a;font-size:14px;margin-top:10px;min-height:20px;text-align:center}
+  footer{border-top:1px solid var(--line);padding:28px 24px 40px;text-align:center;color:var(--muted2);font-size:12.5px;line-height:2}
   footer .brand{color:var(--lime);font-weight:700}
-  footer .links a{color:var(--text);text-decoration:none;margin:0 8px}
-  @media(max-width:560px){.products{grid-template-columns:1fr}}
+  footer .links{margin-bottom:8px}
+  footer .links a{color:inherit;text-decoration:none;margin:0 4px}
 </style>
 </head>
 <body>
-<header><div class="in"><a class="logo" href="/">선한영어 Sunhan English</a><a class="home" href="/">← 홈으로</a></div></header>
+<header><div class="in"><a class="logo" href="/"><svg viewBox="334 278 616 616" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#fff" d="M445 288 675 360V382L485 335V853L445 870Z"/><rect x="634" y="537" width="13" height="78" rx="6.5" fill="#fff"/><path fill="#a3e635" d="M485 828 675 790 485 853Z"/><path fill="#a3e635" d="M676 398 839 323V808L787 801 799 884 735 799 676 789Z"/></svg><span>선한영어</span></a><a class="home" href="/">← 홈으로</a></div></header>
 
 <main>
   <h1>이용권 결제</h1>
-  <p class="sub">회원가입 없이 바로 구매할 수 있어요. 학습 콘텐츠는 카카오톡 채널 '선한영어'로 보내드립니다.</p>
+  <p class="sub">회원가입 없이 바로 구매할 수 있어요<br>학습 콘텐츠는 카카오톡 채널 '선한영어'로 보내드립니다</p>
 
   <div class="notice">
-    <h2>결제 전 꼭 확인해 주세요</h2>
+    <h2>결제 전에 확인해 주세요</h2>
     <ol>
-      <li>콘텐츠는 <b>카카오톡 채널 '선한영어'</b>로 발송됩니다. 결제 전에 채널을 추가해 주세요.</li>
-      <li>휴대폰 번호는 <b>카카오톡에 가입된 번호</b>로 입력해 주세요. 이 번호로 수신 대상에 등록됩니다.</li>
-      <li>채널을 차단하거나 메시지 수신을 거부하면 콘텐츠를 받으실 수 없어요.</li>
-      <li>카카오 계정의 <b>마케팅 목적 개인정보 수집·이용 동의</b>와 <b>맞춤형 광고 허용</b>이 모두 켜져 있어야 메시지가 발송돼요. (카카오 정책)
+      <li><b>카카오톡 채널 '선한영어'를 먼저 추가해 주세요</b><small>콘텐츠는 이 채널로 보내드려요</small></li>
+      <li><b>휴대폰 번호는 카카오톡에 가입된 번호로 입력해 주세요</b><small>이 번호로 수신 대상에 등록돼요</small></li>
+      <li><b>채널을 차단하거나 수신을 거부하면 콘텐츠를 받으실 수 없어요</b></li>
+      <li><b>카카오 계정의 수신 동의 두 가지를 켜 주세요</b><small>마케팅 목적 개인정보 수집·이용 동의, 맞춤형 광고 허용 (카카오 정책)</small>
         <details class="how"><summary>설정 방법 보기</summary>
           <p>① 카카오톡 &gt; 더보기 &gt; 설정(톱니바퀴) &gt; 카카오계정 &gt; 계정 이용 &gt; 서비스 이용 동의 &gt; 마케팅 목적의 개인정보 수집 및 이용 동의</p>
           <p>② <a href="https://info.ad.daum.net/optoutko.do" target="_blank" rel="noopener">카카오 맞춤형 광고 설정</a>에서 '허용' 선택</p>
         </details>
       </li>
-      <li>첫 발송: 결제일 다음 날 이후 처음 오는 <b>월·수·금 오전 8시</b></li>
+      <li><b>첫 발송은 결제일 다음 날 이후 처음 오는 월·수·금 오전 8시예요</b></li>
     </ol>
     <a class="kakao" href="https://pf.kakao.com/_BEqxnX" target="_blank" rel="noopener">카카오톡 채널 추가하기</a>
   </div>
@@ -94,35 +106,37 @@
       <div class="price" id="sumPrice"></div>
     </div>
     <ul class="info">
-      <li>디지털 콘텐츠 이용권으로, 실물 배송이 없습니다.</li>
-      <li>1회 결제 상품이며 자동 갱신(정기결제)되지 않습니다.</li>
+      <li>디지털 콘텐츠 이용권으로, 실물 배송이 없습니다</li>
+      <li>1회 결제 상품이며 자동 갱신(정기결제)되지 않습니다</li>
       <li>서비스 제공기간: 결제 확인 후 첫 발송일부터 <b id="infoDays"></b> (최대 제공기간 3개월)</li>
-      <li>발송: 매주 월·수·금 오전 8시, 카카오톡 채널 '선한영어'로 발송</li>
-      <li>통역사의 테드 영어와 두 상품 패키지는 준비 중이에요.</li>
-      <li>환불 기준은 <a href="/refund.html" target="_blank">환불정책</a>을 확인해 주세요.</li>
+      <li>발송: 매주 월·수·금 오전 8시, 카카오톡 채널 '선한영어'</li>
+      <li>통역사의 테드 영어와 두 상품 패키지는 준비 중이에요</li>
+      <li>환불 기준은 <a href="/refund.html" target="_blank">환불정책</a>을 확인해 주세요</li>
     </ul>
   </div>
 
   <div class="step">
-    <h2><span>2</span>구매자 정보 (비회원 구매)</h2>
-    <label for="buyerName">이름</label>
+    <h2><span>2</span>구매자 정보</h2>
+    <label for="buyerName" style="margin-top:0">이름</label>
     <input type="text" id="buyerName" placeholder="홍길동" autocomplete="name">
     <label for="buyerPhone">휴대폰 번호 (카카오톡에 가입된 번호)</label>
-    <input type="tel" id="buyerPhone" placeholder="01012345678" autocomplete="tel">
-    <p class="hint">이 번호로 카카오톡 채널 수신 대상에 등록돼요. 카카오톡 번호와 다르면 콘텐츠를 받으실 수 없어요.</p>
+    <input type="tel" id="buyerPhone" placeholder="01012345678" autocomplete="tel" inputmode="numeric">
+    <p class="hint">카카오톡 번호와 다르면 콘텐츠를 받으실 수 없어요</p>
     <label for="buyerEmail">이메일</label>
     <input type="email" id="buyerEmail" placeholder="example@email.com" autocomplete="email">
+    <div class="agrees">
     <div class="agree">
       <input type="checkbox" id="agreePrivacy">
-      <label for="agreePrivacy" style="margin:0;font-weight:400">[필수] 개인정보 수집·이용 동의 — 수집 항목: 이름, 휴대폰 번호, 이메일 / 목적: 이용권 결제, 학습 콘텐츠 발송 및 고객 문의 응대 / 보유기간: 이용기간 종료 후 관계 법령에 따른 보관기간까지 (<a href="/privacy.html" target="_blank">개인정보처리방침</a>)</label>
+      <label for="agreePrivacy"><b>[필수] 개인정보 수집·이용 동의</b><br>수집 항목: 이름, 휴대폰 번호, 이메일 / 목적: 이용권 결제, 학습 콘텐츠 발송 및 고객 문의 응대 / 보유기간: 이용기간 종료 후 관계 법령에 따른 보관기간까지 (<a href="/privacy.html" target="_blank">개인정보처리방침</a>)</label>
     </div>
     <div class="agree">
       <input type="checkbox" id="agreeRefund">
-      <label for="agreeRefund" style="margin:0;font-weight:400">[필수] 서비스 제공기간 및 <a href="/refund.html" target="_blank">환불정책</a>을 확인했습니다.</label>
+      <label for="agreeRefund"><b>[필수] 서비스 제공기간 및 <a href="/refund.html" target="_blank">환불정책</a>을 확인했습니다</b></label>
     </div>
     <div class="agree">
       <input type="checkbox" id="agreeKakao">
-      <label for="agreeKakao" style="margin:0;font-weight:400">[필수] 콘텐츠는 카카오톡 채널 '선한영어'로만 발송되며, 채널을 추가하지 않거나 차단한 경우, 카카오 계정의 수신 관련 동의(마케팅 목적 개인정보 수집·이용, 맞춤형 광고 허용)가 꺼져 있는 경우 받을 수 없음을 확인했습니다.</label>
+      <label for="agreeKakao"><b>[필수] 카카오톡 채널 발송 안내를 확인했습니다</b><br>콘텐츠는 카카오톡 채널 '선한영어'로만 발송되며, 채널을 추가하지 않거나 차단한 경우, 카카오 계정의 수신 관련 동의(마케팅 목적 개인정보 수집·이용, 맞춤형 광고 허용)가 꺼져 있는 경우 받을 수 없습니다</label>
+    </div>
     </div>
   </div>
 
@@ -156,7 +170,7 @@
   const PRODUCTS = {
     news: { name: "통역사의 뉴스 영어", desc: "영어 뉴스 · 월·수·금 발송",   prices: { 1: 19000, 3: 45000 }, open: true },
     ted:  { name: "통역사의 테드 영어", desc: "TED-Ed 영상 · 화·목 발송", prices: { 1: 12000, 3: 29000 }, open: false },
-    pkg:  { name: "두 상품 패키지", desc: "테드+뉴스 · 평일 발송",        prices: { 1: 27000, 3: 59000 }, open: false }
+    pkg:  { name: "두 상품 패키지", desc: "뉴스+테드 · 평일 발송",        prices: { 1: 27000, 3: 59000 }, open: false }
   };
   const DAYS = { 1: "30일", 3: "90일" };
 
@@ -213,13 +227,13 @@
       const name = document.getElementById("buyerName").value.trim();
       const phone = document.getElementById("buyerPhone").value.replace(/\D/g, "");
       const email = document.getElementById("buyerEmail").value.trim();
-      if (!name) return (errBox.textContent = "이름을 입력해 주세요.");
-      if (!/^01\d{8,9}$/.test(phone)) return (errBox.textContent = "휴대폰 번호를 정확히 입력해 주세요.");
-      if (!/^\S+@\S+\.\S+$/.test(email)) return (errBox.textContent = "이메일을 정확히 입력해 주세요.");
-      if (!document.getElementById("agreePrivacy").checked) return (errBox.textContent = "개인정보 수집·이용에 동의해 주세요.");
-      if (!document.getElementById("agreeRefund").checked) return (errBox.textContent = "서비스 제공기간 및 환불정책 확인에 체크해 주세요.");
-      if (!document.getElementById("agreeKakao").checked) return (errBox.textContent = "카카오톡 채널 발송 안내 확인에 체크해 주세요.");
-      if (!PRODUCTS[product].open) return (errBox.textContent = "현재 준비 중인 상품입니다.");
+      if (!name) return (errBox.textContent = "이름을 입력해 주세요");
+      if (!/^01\d{8,9}$/.test(phone)) return (errBox.textContent = "휴대폰 번호를 정확히 입력해 주세요");
+      if (!/^\S+@\S+\.\S+$/.test(email)) return (errBox.textContent = "이메일을 정확히 입력해 주세요");
+      if (!document.getElementById("agreePrivacy").checked) return (errBox.textContent = "개인정보 수집·이용에 동의해 주세요");
+      if (!document.getElementById("agreeRefund").checked) return (errBox.textContent = "서비스 제공기간 및 환불정책 확인에 체크해 주세요");
+      if (!document.getElementById("agreeKakao").checked) return (errBox.textContent = "카카오톡 채널 발송 안내 확인에 체크해 주세요");
+      if (!PRODUCTS[product].open) return (errBox.textContent = "현재 준비 중인 상품입니다");
 
       const p = PRODUCTS[product];
       try { sessionStorage.setItem("sh_buyer", JSON.stringify({ name, phone, email })); } catch (e) {}
@@ -234,7 +248,7 @@
           failUrl: location.origin + "/fail.html"
         });
       } catch (e) {
-        errBox.textContent = e.message || "결제가 취소되었습니다.";
+        errBox.textContent = e.message || "결제가 취소되었습니다";
       }
     });
   })();
